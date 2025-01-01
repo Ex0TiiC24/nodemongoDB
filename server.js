@@ -11,8 +11,30 @@ app.use(bodyParser.json())
 
 
 
-app.get('/',(req,res)=>{
-    res.send("hi")
+app.get('/product',async(req,res)=>{
+
+    try{
+        const product = await Product.find({});
+        res.status(200).json(product)
+        console.log("get requested")
+    }
+    catch (error){
+        res.status(500).json({message:error.message})
+    }
+})
+app.get('/product/:id',async(req,res)=>{
+    try{
+        const id = req.params.id
+        console.log(req.params.id)
+        const product = await Product.findById(id);
+        res.status(200).json(product)
+        console.log("get requested")
+    }
+    catch (error){
+        res.status(500).json({message:error.message})
+    
+        
+    }
 })
 
 app.post('/product',async(req,res)=>{
