@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
+const Product = require('./models/productmodel')
 const mongoosse = require('mongoose')
 // let database = []
 // let counter = 100
@@ -14,9 +15,15 @@ app.get('/',(req,res)=>{
     res.send("hi")
 })
 
-app.post('/product',(req,res)=>{
-    console.log(req.body)
-    res.send("lol")
+app.post('/product',async(req,res)=>{
+    try{
+        const product = await Product.create(req.body)
+        res.status(200).json(product)
+    }
+    catch(error) {
+        console.log(error.message);
+        res.status(500).json({message: error.message})
+    }
 })
 
 

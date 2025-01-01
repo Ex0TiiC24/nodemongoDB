@@ -6,7 +6,7 @@ const productSchema = mongoose.Schema({
         required:[true,"Please enter a product name"]
     },
     quantity:{
-        type:number,
+        type:Number,
         required:true,
         default:0
 
@@ -27,3 +27,4 @@ const productSchema = mongoose.Schema({
 )
 
 const Product = mongoose.model('Product',productSchema)
+module.exports = Product;
